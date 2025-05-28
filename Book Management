@@ -1,0 +1,327 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+typedef struct Book
+{
+	int bookid;
+	char bookname[100];
+	char authorname[100];
+	double price;
+	double rating;
+}book;
+  void add(book*,int);
+  void display(book*);
+  void search(book*);
+  int searchbyid(book*,int);
+  void display1(book);
+  int searchbyname(book*,char*);
+  void display2(book);
+  void searchbyauthorname(book*,char*);
+  void display3(book);
+  void update(book*);
+  void removing(book*);
+  void displaytop3(book*);
+  void display4(book*);
+  int count = 0; 
+int main()
+{
+    book *b1;
+    int size;
+    printf("\nEnter the size of array:");
+    scanf("%d",&size);
+    b1=(book*)malloc(sizeof(book)*size);
+    int op;
+	do
+{
+	printf("1.Adding.\n2.Displaying.\n3.Searching.\n4.Updating.\n5.Removing.\n6.Display top 3 books.\n0.to exit\n");
+    printf("Enter your choice:");
+	scanf("%d",&op);
+	switch(op)
+	{
+		case 1:
+			{
+            add(b1,size);
+			count++; }		
+			break;
+		case 2:	
+		    display(b1);
+			break;
+		case 3:
+			{
+		search(b1);
+			break;
+		case 4:
+		update(b1);
+			break;
+		case 5:	
+		   removing(b1);
+		    break;
+		case 6:
+			displaytop3(b1);
+			break;
+		case 0:
+			printf("Thank You!!");
+			break;
+		default:
+			printf("Invalid choice. Please enter a valid option.\n");
+	 } 
+	 }
+}while(op!=0);
+}
+//--------------------------------------ADD-------------------------------------------------------------------------
+  void add(book* b1,int size)
+ {
+ 	if(count!=size){
+ 		 printf("Enter book id:");
+				scanf("%d",&b1[count].bookid);
+				printf("Enter book name:");
+				scanf("%s",b1[count].bookname);
+				printf("Enter book author name:");
+				scanf("%s",b1[count].authorname);
+				printf("Enter book price:");
+				scanf("%lf",&b1[count].price);
+				printf("Enter book rating:");
+				scanf("%lf",&b1[count].rating);	
+	 }
+	 else{
+			printf("\nSorry!!!\nYou can store upto only %d \n\n",size);
+	}
+}
+  //--------------------------------------DISPLAY-------------------------------------------------------------------------
+   void display(book* b1){
+  	        int i;
+			for(i=0;i<count;i++){
+			printf("\n--------------Display book %d details----------------\n",i);
+			printf("\nBook id:%d\n",b1[i].bookid);
+			printf("\nBook name:%s\n",b1[i].bookname);
+			printf("\nBook author name:%s\n",b1[i].authorname);
+			printf("\nPrice of book:%lf\n",b1[i].price);
+			printf("\nBook rating:%lf\n",b1[i].rating);	
+			printf("\n");
+			}
+  }
+  //------------------------------------------------------------------------------------------------------------------------------------------------
+  //------------SEARCH BY ID -------------------
+  int searchbyid(book* b1,int bid){
+  	int i;
+  	for(i=0;i<count;i++){
+  		if(b1[i].bookid==bid){
+  			return i;
+		  }
+	  }
+	  return -1;
+  }
+  //------------SEARCH BY NAME-------------------
+  int searchbyname(book* b1,char* bn){
+  	int i;
+  	for(i=0;i<count;i++){
+  		if(strcmp(b1[i].bookname,bn)==0){
+  			return i;
+		  }
+	  }
+	  return -1;
+  }	 
+  //-----------SEARCH BY AUTHORNAME-----------------
+  void searchbyauthorname(book* b1,char* ban){
+  int i;
+  	for(i=0;i<count;i++){
+  		if(strcmp(b1[i].authorname,ban)==0){
+  			display3(b1[i]);
+		  }
+	  }
+  }	
+  //-------------------------------------------------------------------------------------------------------------------------------------------
+  //------------SEARCH id display-------------------
+   void display1(book b){
+   	printf("\n--------------Display book details----------------\n");
+			printf("\nBook id:%d\n",b.bookid);
+			printf("\nBook name:%s\n",b.bookname);
+			printf("\nBook author name:%s\n",b.authorname);
+			printf("\nPrice of book:%lf\n",b.price);
+			printf("\nBook rating:%lf\n",b.rating);	
+			printf("\n");
+			}
+			
+	//------------SEARCH bookname display-------------------
+   void display2(book b){
+   	printf("\n--------------Display  details----------------\n");
+			printf("\nBook id:%d\n",b.bookid);
+			printf("\nBook name:%s\n",b.bookname);
+			printf("\nBook author name:%s\n",b.authorname);
+			printf("\nPrice of book:%lf\n",b.price);
+			printf("\nBook rating:%lf\n",b.rating);	
+			printf("\n");
+			}
+			
+	//------------SEARCH authorname display-------------------
+   void display3(book b){
+   	printf("\n--------------Display  details----------------\n");
+			printf("\nBook id:%d\n",b.bookid);
+			printf("\nBook name:%s\n",b.bookname);
+			printf("\nBook author name:%s\n",b.authorname);
+			printf("\nPrice of book:%lf\n",b.price);
+			printf("\nBook rating:%lf\n",b.rating);	
+			printf("\n");
+			}	
+			
+	void display4(book* b){
+			int i;
+			for(i=0;i<3;i++){
+			printf("\n--------------Display book %d details----------------\n",i);
+			printf("\nBook id:%d\n",b[i].bookid);
+			printf("\nBook name:%s\n",b[i].bookname);
+			printf("\nBook author name:%s\n",b[i].authorname);
+			printf("\nPrice of book:%lf\n",b[i].price);
+			printf("\nBook rating:%lf\n",b[i].rating);	
+			printf("\n");
+			}
+		}
+   
+  //--------------------------------------SEARCH -------------------------------------------------------------------------
+  void search(book* b1){
+  	int select;
+  	printf("1.search by id\n2.search by name\n3.search by author name\n");
+  	printf("you select :");
+  	scanf("%d",&select);
+  	//------------SEARCH 1-------------------
+  	if(select==1){
+  		printf("\nyou select search by id: ");
+  		int bid,f;
+  	printf("\nSearch by id\nPlease Enter book id:");
+  	scanf("%d",&bid);
+  		f=searchbyid(b1,bid);
+  		if(f==-1){
+			printf("\nNot Found!!!\n");
+		}	
+		else{
+			printf("\npresent\n");
+			display1(b1[f]);
+		}
+	  }
+	  
+	  //------------SEARCH 2------------------- 
+	else if(select==2){
+	printf("\nyou select search by name: ");
+  	//	searchbyname(b1,count);	
+  		char bn[20];int index2;
+  	printf("\nSearch by book name\nPlease Enter book name:");
+  	scanf("%s",bn);
+  		index2=searchbyname(b1,bn);
+  		if(index2==-1){
+			printf("\nNot Found!!!\n");
+		}	
+		else{
+			printf("\npresent\n");
+			display2(b1[index2]);
+		}
+	}
+	
+	//--------------SEARCH 3--------------------------- 
+	else if(select==3){
+	printf("\nyou select search by author name: ");
+  	//searchbyauthorname(b1,count);
+	  char ban[20];
+	  printf("\nSearch by author name\nPlease Enter author name:");
+	  fflush(stdin);
+  	scanf("%s",ban);
+  		searchbyauthorname(b1,ban);
+  		//if(index3==-1){
+		//	printf("\n--------Not Found!!!---------\n");
+		//}	
+		//else{
+		//	printf("\npresent\n");
+		//	display3(b1[index3]);
+		}
+	//----------------ELSE-------------------------------
+	else{
+	printf("\n-----------WRONG CHOICE-----------\n");	
+	}
+}
+
+//---------------------------------------REMOVING----------------------------------------------------------------
+  void removing(book*b1){
+  	int bid;
+  	printf("\nEnter book id : ");
+  	scanf("%d",&bid);
+  int i=searchbyid(b1,bid);
+  if(i==-1){
+  	printf("\nBook id not found\n");
+  }
+  	else{
+  		while(i<count-1){
+  			b1[i]=b1[i+1];
+  			i++;
+		  }
+		  count--;
+	  }
+	  display(b1);
+  }
+ 
+//---------------------------------------UPDATE(price,rating)---------------------------------------------------------------
+  void update(book* b1){
+  printf("\nWhat you want to update:\n1.Price\n2.Rating\n");
+  int choice;
+  printf("Your choice:");
+  scanf("%d",&choice);
+  if(choice==1){
+  	//------Take bookid you want to update-------
+  	int bid,up;
+  	printf("Enter book id : ");
+  	scanf("%d",&bid);
+  	int i=searchbyid(b1,bid);// i represent indexno.of bid
+  	printf("\nEnter updated price:");
+  	scanf("%d",&up);
+  	b1[i].price=up;
+  	display(b1);
+  }
+  	
+  else if(choice==2){
+  	//------Take bookid you want to update-------
+  	int bid,up;
+  	printf("Enter book id : ");
+  	scanf("%d",&bid);
+  	int r=searchbyid(b1,bid);// r represent indexno.of bid
+  	printf("\nEnter updated rating:");
+  	scanf("%d",&up);
+  	b1[r].rating=up;
+  	display(b1);
+  }
+  }
+
+   //--------------------------------------DISPLAYTOP3(price,rating)----------------------------------------------------------------
+ void displaytop3(book*b1){
+  int option;
+  printf("\nDisplay top 3:\n1.Price\n2.Rating\n");
+  printf("Your option:");
+  scanf("%d",&option);
+  int i,j,max=b1[0].price;
+  book temp;
+  if(option==1){
+  for(j=0;j<count-1;j++){
+  for(i=0;i<count-1;i++){
+  	if(b1[i].price<b1[i+1].price){
+  		temp=b1[i];
+  		b1[i]=b1[i+1];
+  		b1[i+1]=temp;
+	  }
+  }
+}
+  display4(b1);
+  }
+  
+  else if(option==2){
+  for(j=0;j<count-1;j++){
+  for(i=0;i<count-1;i++){
+  	if(b1[i].rating<b1[i+1].rating){
+  		temp=b1[i];
+  		b1[i]=b1[i+1];
+  		b1[i+1]=temp;
+	  }
+  }
+}
+  display4(b1);
+  }
+  else{
+  	printf("\nInvalid option!!!1.Price\n2.Rating\n");
+  }
+}
